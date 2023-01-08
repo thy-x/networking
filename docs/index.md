@@ -1,0 +1,7 @@
+# Template
+
+```{toctree}
+:glob:
+
+*/index
+```
