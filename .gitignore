@@ -4,10 +4,17 @@
 *thydev*
 Makefile
 
+# waf
+waf
+waflib/
+.lock-waf*
+
 # Managed by peru
+requirements.txt
 docs/_static/custom.*
 docs/_
 *thyglobal*
+*livereload*
 
 # Created by https://www.toptal.com/developers/gitignore/api/python,jupyternotebooks
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,jupyternotebooks

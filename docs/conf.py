@@ -29,17 +29,6 @@ html_theme_options |= {
 }
 
 intersphinx_mapping_enabled = (
-    # 'thy_main',
-    # 'thy_python',
-    # 'thy_azure',
-    # 'thy_devops',
-    # 'thy_qknotes',
-    # 'thy_systems',
-    # 'thy_misc',
 
-    'py3',
-    'pydevguide',
-    'rtfd',
-    'sphinx',
 )
 intersphinx_mapping = {k: v for k, v in intersphinx_mapping.items() if k in intersphinx_mapping_enabled}

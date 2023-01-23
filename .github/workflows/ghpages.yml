@@ -4,6 +4,8 @@ on         :
     branches:
       - main
 
+  workflow_dispatch:
+
 env        :
   PY_VER       : '3.11'
   PERU_VER     : '1.3.1'
@@ -37,18 +39,30 @@ jobs       :
         uses: actions/setup-python@v4
         with:
           python-version: ${{ env.PY_VER }}
-          cache         : 'pip'
 
       - name: Update pip
         run : pip install -U pip wheel setuptools
 
-      - name: Run peru sync
+      - name: peru sync
         run : |
           pip install "peru~=${{ env.PERU_VER }}"
           peru sync --no-cache --force
 
-      - name: Run pip install
-        run : pip install -r requirements.thyglobal.txt
+      # https://github.com/actions/cache/blob/main/examples.md#using-pip-to-get-cache-location
+      - name: Get pip cache dir
+        id  : pip-cache
+        run : echo "dir=$(pip cache dir)" >> $GITHUB_OUTPUT
+
+      - name: pip cache
+        uses: actions/cache@v3
+        with:
+          path        : ${{ steps.pip-cache.outputs.dir }}
+          key         : ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: pip install
+        run : pip install -r requirements.txt
 
       # Sphinx
       - name: Run sphinx-build html
